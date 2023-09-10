@@ -149,8 +149,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "E:/GitHub/AlgorithmVerseLab/DSCodeGallery/DynSeqCppImpl/cmake-build-debug",
-		"source" : "E:/GitHub/AlgorithmVerseLab/DSCodeGallery/DynSeqCppImpl"
+		"build" : "E:/DataStructure/LinkedListCpp/cmake-build-debug",
+		"source" : "E:/DataStructure/LinkedListCpp"
 	},
 	"version" : 
 	{
