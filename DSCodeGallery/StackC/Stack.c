@@ -1,6 +1,6 @@
 #include "Stack.h"
 
-// 初始化栈
+// Initialize the stack
 void StackInit(Stack *stack) {
     assert(stack);
     stack->data = NULL;
@@ -8,19 +8,19 @@ void StackInit(Stack *stack) {
     stack->capacity = 0;
 }
 
-// 入栈操作
+// Push operation
 void StackPush(Stack *stack, STDataType value) {
     assert(stack);
 
     if (stack->top == stack->capacity) {
         size_t newCapacity = (stack->capacity == 0) ? 4 : stack->capacity * 2;
-        STDataType *temp = (STDataType *) malloc(sizeof(STDataType) * newCapacity);
+        STDataType *temp = (STDataType *)malloc(sizeof(STDataType) * newCapacity);
         if (temp) {
             for (size_t index = 0; index < stack->top; index++) {
                 temp[index] = stack->data[index];
             }
-            free(stack->data);   // 释放旧的内存
-            stack->data = temp;  // 更新指针为新内存地址
+            free(stack->data);   // Free the old memory
+            stack->data = temp;  // Update the pointer to the new memory address
             temp = NULL;
             stack->capacity = newCapacity;
         } else {
@@ -29,38 +29,38 @@ void StackPush(Stack *stack, STDataType value) {
         }
     }
 
-    stack->data[stack->top++] = value; // 压入元素并更新栈顶指针
+    stack->data[stack->top++] = value; // Push the element and update the top pointer
 }
 
-// 出栈操作
+// Pop operation
 void StackPop(Stack *stack) {
     assert(stack);
 
     if (!StackEmpty(stack)) {
-        stack->top--; // 更新栈顶指针，实现出栈操作
+        stack->top--; // Update the top pointer to implement the pop operation
     } else {
         fprintf(stderr, "Empty stack, cannot pop!\n");
     }
 }
 
-// 获取栈大小
+// Get the stack size
 size_t StackSize(Stack *stack) {
     assert(stack);
-    return stack->top; // 返回栈顶指针的值即为栈大小
+    return stack->top; // Return the value of the top pointer as the stack size
 }
 
-// 判断栈是否为空
+// Check if the stack is empty
 int StackEmpty(Stack *stack) {
     assert(stack);
-    return (stack->top == 0); // 栈顶指针为0表示栈为空
+    return (stack->top == 0); // The top pointer being 0 indicates an empty stack
 }
 
-// 销毁栈
+// Destroy the stack
 void StackDestroy(Stack *stack) {
     assert(stack);
     if (stack->data) {
-        free(stack->data); // 释放栈内存
-        stack->data = NULL; // 避免悬挂指针
+        free(stack->data); // Free the stack memory
+        stack->data = NULL; // Avoid dangling pointers
     }
     stack->top = 0;
     stack->capacity = 0;
