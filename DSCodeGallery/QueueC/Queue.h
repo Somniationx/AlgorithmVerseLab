@@ -1,30 +1,30 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-// 队列中存储的数据类型
+// Data type stored in the queue
 typedef int QDataType;
 
-// 链式结构：表示队列节点
+// Linked structure: represents a queue node
 typedef struct QListNode
 {
-    struct QListNode* _pNext; // 指向下一个节点的指针
-    QDataType _data;          // 节点存储的数据
+    struct QListNode* _pNext; // Pointer to the next node
+    QDataType _data;          // Data stored in the node
 } QNode;
 
-// 队列的结构
+// Queue structure
 typedef struct Queue
 {
-    QNode* _front; // 队列头指针，指向队列的头节点
-    QNode* _rear;  // 队列尾指针，指向队列的尾节点
+    QNode* _front; // Queue head pointer, points to the head node of the queue
+    QNode* _rear;  // Queue rear pointer, points to the tail node of the queue
 } Queue;
 
-void QueueInit(Queue* q);                     // 初始化队列
-void QueuePush(Queue* q, QDataType data);     // 队尾入队列
-void QueuePop(Queue* q);                      // 队头出队列
-QDataType QueueFront(Queue* q);               // 获取队列头部元素
-QDataType QueueBack(Queue* q);                // 获取队列队尾元素
-int QueueSize(Queue* q);                      // 获取队列中有效元素个数
-int QueueEmpty(Queue* q);                     // 检测队列是否为空
-void QueueDestroy(Queue* q);                  // 销毁队列
+void QueueInit(Queue* q);                     // Initialize the queue
+void QueuePush(Queue* q, QDataType data);     // Enqueue at the rear of the queue
+void QueuePop(Queue* q);                      // Dequeue from the front of the queue
+QDataType QueueFront(Queue* q);               // Get the element at the front of the queue
+QDataType QueueBack(Queue* q);                // Get the element at the rear of the queue
+int QueueSize(Queue* q);                      // Get the number of valid elements in the queue
+int QueueEmpty(Queue* q);                     // Check if the queue is empty
+void QueueDestroy(Queue* q);                  // Destroy the queue
 
 #endif // QUEUE_H
