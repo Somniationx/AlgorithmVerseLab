@@ -8,45 +8,45 @@
 
 typedef int ListDataType;
 
-// 链表节点的结构定义
+// Structure definition for a linked list node
 struct ListNode {
-    ListDataType data;  // 节点数据
-    struct ListNode *next;  // 指向下一个节点的指针
-    struct ListNode *pre;   // 指向前一个节点的指针
+    ListDataType data;  // Node data
+    struct ListNode* next;  // Pointer to the next node
+    struct ListNode* pre;   // Pointer to the previous node
 };
 
-// 使用 ListNode 定义 List 类型（指向链表头节点的指针）
+// Define List type using ListNode (a pointer to the head of the linked list)
 typedef struct ListNode ListNode;
-typedef ListNode *List;
+typedef ListNode* List;
 
-// 创建一个新的链表并返回头节点指针
+// Create a new linked list and return a pointer to the head node
 List ListCreate();
 
-// 创建一个新的节点并返回节点指针
-ListNode *buyNewNode(ListDataType value);
+// Create a new node and return a pointer to the node
+ListNode* buyNewNode(ListDataType value);
 
-// 在链表末尾插入节点
+// Insert a node at the end of the linked list
 void ListPushBack(List list, ListDataType value);
 
-// 打印链表中的元素
+// Print the elements in the linked list
 void ListPrint(List list);
 
-// 在链表头部插入节点
+// Insert a node at the beginning of the linked list
 void ListPushFront(List list, ListDataType value);
 
-// 删除链表头部节点
+// Delete the head node of the linked list
 void ListPopFront(List list);
 
-// 检查链表是否为空
+// Check if the linked list is empty
 bool ListEmpty(List list);
 
-// 删除链表末尾节点
+// Delete the last node of the linked list
 void ListPopBack(List list);
 
-// 在链表中查找节点并返回节点指针，如果没找到返回 NULL
-ListNode *ListFind(List list, ListDataType value);
+// Find a node in the linked list and return a pointer to the node; return NULL if not found
+ListNode* ListFind(List list, ListDataType value);
 
-// 销毁整个链表
+// Destroy the entire linked list
 void ListDestroy(List list);
 
 #endif //LINKLISTC2_LINKLIST_H

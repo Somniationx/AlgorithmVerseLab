@@ -1,123 +1,123 @@
 #include "LinkList.h"
 
-// 创建一个新链表，返回头结点指针
+// Create a new linked list and return the head node pointer
 List ListCreate() {
-    // 分配内存以保存头节点
-    ListNode *head = (ListNode *) malloc(sizeof(ListNode));
+    // Allocate memory to store the head node
+    ListNode *head = (ListNode *)malloc(sizeof(ListNode));
     if (head) {
-        head->next = head;  // 头节点的下一个节点指向自己
-        head->pre = head;   // 头节点的前一个节点指向自己
+        head->next = head;  // The next node of the head points to itself
+        head->pre = head;   // The previous node of the head points to itself
     } else {
-        fprintf(stderr, "Malloc fail!");  // 内存分配失败时打印错误信息
-        exit(-1);  // 退出程序，表示失败
+        fprintf(stderr, "Malloc failed!");  // Print an error message when memory allocation fails
+        exit(-1);  // Exit the program to indicate failure
     }
-    return head;  // 返回头节点指针
+    return head;  // Return the head node pointer
 }
 
-// 创建一个新节点，返回节点指针
+// Create a new node and return the node pointer
 ListNode *buyNewNode(ListDataType value) {
-    // 分配内存以保存新节点
-    ListNode *newNode = (ListNode *) malloc(sizeof(ListNode));
+    // Allocate memory to store the new node
+    ListNode *newNode = (ListNode *)malloc(sizeof(ListNode));
     if (newNode) {
-        newNode->data = value;  // 设置新节点的数据值
-        newNode->next = NULL;   // 将新节点的下一个节点指针初始化为 NULL
-        newNode->pre = NULL;    // 将新节点的前一个节点指针初始化为 NULL
+        newNode->data = value;  // Set the data value of the new node
+        newNode->next = NULL;   // Initialize the next node pointer of the new node to NULL
+        newNode->pre = NULL;    // Initialize the previous node pointer of the new node to NULL
     } else {
-        fprintf(stderr, "Malloc fail!");  // 内存分配失败时打印错误信息
-        exit(-1);  // 退出程序，表示失败
+        fprintf(stderr, "Malloc failed!");  // Print an error message when memory allocation fails
+        exit(-1);  // Exit the program to indicate failure
     }
-    return newNode;  // 返回新节点指针
+    return newNode;  // Return the new node pointer
 }
 
-// 在链表末尾插入节点
+// Insert a node at the end of the linked list
 void ListPushBack(List list, ListDataType value) {
-    assert(list);  // 断言：确保链表头节点不为空
-    ListNode *newNode = buyNewNode(value);  // 创建一个新节点
-    ListNode *last = list->pre;  // 获取链表的最后一个节点
-    newNode->pre = last;  // 设置新节点的前驱为最后一个节点
-    last->next = newNode;  // 更新最后一个节点的后继为新节点
-    list->pre = newNode;  // 更新链表的前驱为新节点
-    newNode->next = list;  // 更新新节点的后继为头节点，完成插入
+    assert(list);  // Assert: Ensure that the head node of the list is not NULL
+    ListNode *newNode = buyNewNode(value);  // Create a new node
+    ListNode *last = list->pre;  // Get the last node of the list
+    newNode->pre = last;  // Set the new node's predecessor to the last node
+    last->next = newNode;  // Update the successor of the last node to the new node
+    list->pre = newNode;  // Update the predecessor of the list to the new node
+    newNode->next = list;  // Update the successor of the new node to the head node, completing the insertion
 }
 
-// 打印链表元素
+// Print the elements in the linked list
 void ListPrint(List list) {
-    assert(list);  // 断言：确保链表头节点不为空
-    ListNode *cur = list;  // 从头节点开始遍历
+    assert(list);  // Assert: Ensure that the head node of the list is not NULL
+    ListNode *cur = list;  // Start traversing from the head node
     if (cur->next == list) {
-        fprintf(stderr, "Empty List!");  // 如果链表为空，打印错误信息
+        fprintf(stderr, "Empty List!");  // If the list is empty, print an error message
         return;
     }
     while (cur->next != list) {
-        cur = cur->next;  // 移动到下一个节点
-        printf("%d ", cur->data);  // 打印节点的数据值
+        cur = cur->next;  // Move to the next node
+        printf("%d ", cur->data);  // Print the data value of the node
     }
     printf("\n");
 }
 
-// 在链表头部插入节点
+// Insert a node at the beginning of the linked list
 void ListPushFront(List list, ListDataType value) {
-    assert(list);  // 断言：确保链表头节点不为空
-    ListNode *first = list->next;  // 获取链表的第一个节点
-    ListNode *newNode = buyNewNode(value);  // 创建一个新节点
-    newNode->pre = list;  // 设置新节点的前驱为头节点
-    newNode->next = first;  // 设置新节点的后继为原第一个节点
-    list->next = newNode;  // 更新头节点的后继为新节点
-    first->pre = newNode;  // 更新原第一个节点的前驱为新节点
+    assert(list);  // Assert: Ensure that the head node of the list is not NULL
+    ListNode *first = list->next;  // Get the first node of the list
+    ListNode *newNode = buyNewNode(value);  // Create a new node
+    newNode->pre = list;  // Set the predecessor of the new node to the head node
+    newNode->next = first;  // Set the successor of the new node to the original first node
+    list->next = newNode;  // Update the successor of the head node to the new node
+    first->pre = newNode;  // Update the predecessor of the original first node to the new node
 }
 
-// 检查链表是否为空
+// Check if the linked list is empty
 bool ListEmpty(List list) {
-    assert(list);  // 断言：确保链表头节点不为空
-    return (list->next == list);  // 判断链表是否为空
+    assert(list);  // Assert: Ensure that the head node of the list is not NULL
+    return (list->next == list);  // Check if the list is empty
 }
 
-// 删除链表头部节点
+// Delete the head node of the linked list
 void ListPopFront(List list) {
-    assert(list);  // 断言：确保链表头节点不为空
+    assert(list);  // Assert: Ensure that the head node of the list is not NULL
     if (ListEmpty(list)) {
-        fprintf(stderr, "Empty list, cannot ListPopFront!\n");  // 如果链表为空，打印错误信息
+        fprintf(stderr, "Empty list, cannot ListPopFront!\n");  // If the list is empty, print an error message
         return;
     }
-    ListNode *first = list->next;  // 获取链表的第一个节点
-    list->next = first->next;  // 更新头节点的后继为原第二个节点
-    first->next->pre = list;  // 更新原第二个节点的前驱为头节点
-    free(first);  // 释放原第一个节点的内存
+    ListNode *first = list->next;  // Get the first node of the list
+    list->next = first->next;  // Update the successor of the head node to the second node
+    first->next->pre = list;  // Update the predecessor of the second node to the head node
+    free(first);  // Free the memory of the original first node
 }
 
-// 删除链表末尾节点
+// Delete the last node of the linked list
 void ListPopBack(List list) {
-    assert(list);  // 断言：确保链表头节点不为空
-    ListNode *last = list->pre;  // 获取链表的最后一个节点
-    last->pre->next = list;  // 更新倒数第二个节点的后继为头节点
-    list->pre = last->pre;  // 更新头节点的前驱为倒数第二个节点
-    free(last);  // 释放最后一个节点的内存
+    assert(list);  // Assert: Ensure that the head node of the list is not NULL
+    ListNode *last = list->pre;  // Get the last node of the list
+    last->pre->next = list;  // Update the successor of the second-to-last node to the head node
+    list->pre = last->pre;  // Update the predecessor of the head node to the second-to-last node
+    free(last);  // Free the memory of the last node
 }
 
-// 在链表中查找节点并返回节点指针，如果没找到返回 NULL
+// Find a node in the linked list and return a pointer to the node; return NULL if not found
 ListNode *ListFind(List list, ListDataType value) {
-    assert(list);  // 断言：确保链表头节点不为空
-    if (ListEmpty(list)) return NULL;  // 如果链表为空，直接返回 NULL
-    ListNode *cur = list;  // 从头节点开始遍历
+    assert(list);  // Assert: Ensure that the head node of the list is not NULL
+    if (ListEmpty(list)) return NULL;  // If the list is empty, return NULL directly
+    ListNode *cur = list;  // Start from the head node
     while (cur->next != list) {
-        cur = cur->next;  // 移动到下一个节点
+        cur = cur->next;  // Move to the next node
         if (cur->data == value) {
-            return cur;  // 如果找到目标值，返回节点指针
+            return cur;  // If the target value is found, return a pointer to the node
         }
     }
-    return NULL;  // 如果没找到，返回 NULL
+    return NULL;  // If not found, return NULL
 }
 
-// 销毁整个链表
+// Destroy the entire linked list
 void ListDestroy(List list) {
-    assert(list);  // 断言：确保链表头节点不为空
-    ListNode *cur = list->next;  // 从第一个节点开始
+    assert(list);  // Assert: Ensure that the head node of the list is not NULL
+    ListNode *cur = list->next;  // Start from the first node
     while (cur != list) {
-        ListNode *next = cur->next;  // 保存下一个节点的指针
-        free(cur->pre);  // 释放当前节点的内存
-        cur = next;  // 移动到下一个节点
+        ListNode *next = cur->next;  // Save a pointer to the next node
+        free(cur->pre);  // Free the memory of the current node's predecessor
+        cur = next;  // Move to the next node
     }
-    free(cur);  // 释放最后一个节点的内存
-    list->next = NULL;  // 清空头节点的后继指针
-    list->pre = NULL;   // 清空头节点的前驱指针
+    free(cur);  // Free the memory of the last node
+    list->next = NULL;  // Clear the successor pointer of the head node
+    list->pre = NULL;   // Clear the predecessor pointer of the head node
 }
