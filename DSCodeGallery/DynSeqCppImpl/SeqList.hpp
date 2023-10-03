@@ -7,43 +7,44 @@ template<class T>
 class SeqList {
 
 private:
-    T *_data;
-    size_t _size;
-    size_t _capacity;
+    T *_data;         // Pointer to the dynamic array that holds data
+    size_t _size;     // Current size of the sequence list
+    size_t _capacity; // Current capacity of the dynamic array
 
 public:
-    SeqList();
+    SeqList(); // Constructor
 
-    // 检查容量，如果需要，进行扩容
+    // Check capacity and resize if necessary
     void CheckCapacity();
 
-    // 判断顺序表是否为空
+    // Check if the sequence list is empty
     bool empty();
 
-    // 将元素插入顺序表末尾
+    // Add an element to the end of the sequence list
     void push_back(T value);
 
-    // 删除顺序表末尾元素
+    // Remove the last element from the sequence list
     void pop_back();
 
-    // 在顺序表头部插入元素
+    // Add an element to the front of the sequence list
     void push_front(T value);
 
-    // 删除顺序表头部元素
+    // Remove the first element from the sequence list
     void pop_front();
 
-    // 查找给定值在顺序表中的位置
+    // Find the position of a given value in the sequence list
     size_t find(T value);
 
-    // 在指定位置插入元素
+    // Insert an element at a specified position
     void insert(size_t pos, T value);
 
-    // 删除指定位置的元素
+    // Remove an element at a specified position
     void erase(size_t pos);
 
-    //打印顺序表
+    // Print the sequence list
     void print();
 
+    // Destructor
     ~SeqList();
 };
 
@@ -79,23 +80,25 @@ bool SeqList<T>::empty() {
 
 template<class T>
 void SeqList<T>::CheckCapacity() {
-    // 初始或存满数据扩容
+    // Check if the array is full and needs resizing
     if (_size == _capacity) {
+        // Calculate the new capacity (double the current capacity, or 4 if it's the first allocation)
         size_t newCapacity = (_capacity == 0) ? 4 : _capacity * 2;
-        T *newData = new(std::nothrow) T[newCapacity]; // 使用 new(std::nothrow) 来分配内存
+
+        // Allocate a new dynamic array with the new capacity (using std::nothrow to handle allocation failure)
+        T *newData = new(std::nothrow) T[newCapacity];
         if (newData == nullptr) {
-            // 内存分配失败
-            std::cerr << "内存分配失败" << std::endl;
-            // 退出程序
+            // Memory allocation failed
+            std::cerr << "Memory allocation failed" << std::endl;
             std::exit(EXIT_FAILURE);
         } else {
-            // 将原数据拷贝到新数组中
+            // Copy the existing data to the new array
             for (size_t i = 0; i < _size; ++i) {
                 newData[i] = _data[i];
             }
-            // 释放原数组
+            // Free the memory occupied by the old array
             delete[] _data;
-            // 更新指针和容量
+            // Update the data pointer and capacity
             _data = newData;
             _capacity = newCapacity;
         }
@@ -104,14 +107,16 @@ void SeqList<T>::CheckCapacity() {
 
 template<class T>
 void SeqList<T>::push_back(T value) {
-    // 插入数据检查容量
+    // Check capacity and resize if necessary
     CheckCapacity();
+    // Add the value to the end of the sequence list
     _data[_size++] = value;
 }
 
 template<class T>
 void SeqList<T>::pop_back() {
     if (!empty()) {
+        // Remove the last element from the sequence list
         --_size;
     } else {
         std::cerr << "Error: SeqList is empty, cannot pop_back()." << std::endl;
@@ -121,7 +126,7 @@ void SeqList<T>::pop_back() {
 template<class T>
 void SeqList<T>::push_front(T value) {
     CheckCapacity();
-    for (size_t index = _size; index > 0; --index) {
+    for (size_t index = _size; index > 0; index--) {
         _data[index] = _data[index - 1];
     }
     _data[0] = value;
@@ -147,7 +152,7 @@ size_t SeqList<T>::find(T value) {
             return index;
         }
     }
-    return static_cast<size_t>(-1); // 返回特定值表示未找到
+    return static_cast<size_t>(-1); // Return a specific value to indicate not found
 }
 
 template<class T>
@@ -176,9 +181,4 @@ void SeqList<T>::erase(size_t pos) {
             std::cerr << "Error: Invalid erase position." << std::endl;
         }
     } else {
-        std::cerr << "Error: SeqList is empty, cannot erase(size_t value)." << std::endl;
-    }
-}
-
-
-#endif //DYNSEQCPPIMPL_SEQLIST_HPP
+        std::cerr << "Error: SeqList is empty, cannot erase
