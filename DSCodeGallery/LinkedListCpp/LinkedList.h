@@ -3,13 +3,14 @@
 
 #include <iostream>
 
-// 链表节点定义
+// Definition of a linked list node
 template<class T>
 class Node {
 public:
-    T _data;      // 节点存储的数据
-    Node<T> *_next;  // 指向下一个节点的指针
+    T _data;          // Data stored in the node
+    Node<T>* _next;   // Pointer to the next node
 
+    // Constructor to initialize node with a value
     explicit Node(T value) : _data(value), _next(nullptr) {}
 };
 
@@ -18,31 +19,44 @@ class LinkedList {
     friend class Node<T>;
 
 private:
-    Node<T> *_head;  // 链表的头节点指针
+    Node<T>* _head;    // Pointer to the head node of the linked list
+
 public:
+    // Constructor to initialize linked list
     LinkedList() : _head(nullptr) {}
 
+    // Destructor to free memory when linked list is destroyed
     ~LinkedList();
 
-    void print() const;  // 打印链表内容
+    // Print the contents of the linked list
+    void print() const;
 
-    [[nodiscard]] bool empty() const;  // 判断链表是否为空
+    // Check if the linked list is empty
+    [[nodiscard]] bool empty() const;
 
-    void push_back(T value);  // 在链表末尾添加节点
+    // Add a node at the end of the linked list
+    void push_back(T value);
 
-    void push_front(T value);  // 在链表头部添加节点
+    // Add a node at the beginning of the linked list
+    void push_front(T value);
 
-    void pop_back();  // 删除链表末尾节点
+    // Delete the last node of the linked list
+    void pop_back();
 
-    void pop_front();  // 删除链表头部节点
+    // Delete the first node of the linked list
+    void pop_front();
 
-    [[nodiscard]] int size() const;  // 获取链表长度
+    // Get the length of the linked list
+    [[nodiscard]] int size() const;
 
-    void insert(int position, T value);  // 在指定位置插入节点
+    // Insert a node at a specific position
+    void insert(int position, T value);
 
-    void remove(int position);  // 删除指定位置的节点
+    // Delete a node at a specific position
+    void remove(int position);
 
-    Node<T>* find(T value) const;  // 查找包含特定值的节点
+    // Find a node containing a specific value
+    Node<T>* find(T value) const;
 };
 
 template<class T>
@@ -54,23 +68,24 @@ Node<T>* LinkedList<T>::find(T value) const {
         }
         cur = cur->_next;
     }
-    return nullptr; // 未找到该值对应的节点
+    return nullptr; // Node with the specified value was not found
 }
 
 template<class T>
 void LinkedList<T>::remove(int position) {
     if (position < 0 || position >= size()) {
-        std::cout << "无效的删除位置！" << std::endl;
+        std::cout << "Invalid deletion position!" << std::endl;
         return;
     }
     if (position == 0) {
         Node<T>* temp = _head;
         _head = _head->_next;
         delete(temp);
-    } else {
+    }
+    else {
         int count = 0;
-        Node<T> *cur = _head;
-        while (count < position - 1 ) {
+        Node<T>* cur = _head;
+        while (count < position - 1) {
             cur = cur->_next;
             count++;
         }
@@ -83,7 +98,7 @@ void LinkedList<T>::remove(int position) {
 template<class T>
 void LinkedList<T>::insert(int position, T value) {
     if (position < 0 || position > size()) {
-        std::cout << "无效的插入位置！" << std::endl;
+        std::cout << "Invalid insertion position!" << std::endl;
         return;
     }
     if (position == 0) {
@@ -91,14 +106,14 @@ void LinkedList<T>::insert(int position, T value) {
     }
 
     int count = 0;
-    Node<T> *cur = _head;
-    Node<T> *pre = nullptr;
+    Node<T>* cur = _head;
+    Node<T>* pre = nullptr;
     while (count < position) {
         pre = cur;
         cur = cur->_next;
         count++;
     }
-    auto *newNode = new Node<T>(value);
+    auto* newNode = new Node<T>(value);
     pre->_next = newNode;
     newNode->_next = cur;
 }
@@ -106,7 +121,7 @@ void LinkedList<T>::insert(int position, T value) {
 template<class T>
 int LinkedList<T>::size() const {
     int count = 0;
-    Node<T> *cur = _head;
+    Node<T>* cur = _head;
     while (cur != nullptr) {
         count++;
         cur = cur->_next;
@@ -117,10 +132,11 @@ int LinkedList<T>::size() const {
 template<class T>
 void LinkedList<T>::pop_front() {
     if (_head == nullptr) {
-        std::cout << "链表为空，无法执行 pop_front()。" << std::endl;
+        std::cout << "The linked list is empty, cannot perform pop_front()." << std::endl;
         return;
-    } else {
-        Node<T> *temp = _head;
+    }
+    else {
+        Node<T>* temp = _head;
         _head = _head->_next;
         delete (temp);
     }
@@ -129,15 +145,17 @@ void LinkedList<T>::pop_front() {
 template<class T>
 void LinkedList<T>::pop_back() {
     if (_head == nullptr) {
-        std::cout << "链表为空，无法执行 pop_back()。" << std::endl;
+        std::cout << "The linked list is empty, cannot perform pop_back()." << std::endl;
         return;
-    } else {
+    }
+    else {
         if (_head->_next == nullptr) {
             delete (_head);
             _head = nullptr;
-        } else {
-            Node<T> *cur = _head;
-            Node<T> *pre = nullptr;
+        }
+        else {
+            Node<T>* cur = _head;
+            Node<T>* pre = nullptr;
             while (cur->_next != nullptr) {
                 pre = cur;
                 cur = cur->_next;
@@ -150,18 +168,19 @@ void LinkedList<T>::pop_back() {
 
 template<class T>
 void LinkedList<T>::push_front(T value) {
-    auto *newNode = new Node<T>(value);
+    auto* newNode = new Node<T>(value);
     newNode->_next = _head;
     _head = newNode;
 }
 
 template<class T>
 void LinkedList<T>::push_back(T value) {
-    auto *newNode = new Node<T>(value);
+    auto* newNode = new Node<T>(value);
     if (_head == nullptr) {
         _head = newNode;
-    } else {
-        Node<T> *cur = _head;
+    }
+    else {
+        Node<T>* cur = _head;
         while (cur->_next != nullptr) {
             cur = cur->_next;
         }
@@ -177,9 +196,9 @@ bool LinkedList<T>::empty() const {
 template<class T>
 void LinkedList<T>::print() const {
     if (empty()) {
-        std::cout << "空链表" << std::endl;
+        std::cout << "Empty linked list" << std::endl;
     }
-    Node<T> *cur = _head;
+    Node<T>* cur = _head;
     while (cur) {
         std::cout << cur->_data << " ";
         cur = cur->_next;
@@ -189,8 +208,8 @@ void LinkedList<T>::print() const {
 
 template<class T>
 LinkedList<T>::~LinkedList() {
-    Node<T> *temp = _head;
-    // 非空才能进入释放空间
+    Node<T>* temp = _head;
+    // Only enter the space release if it is not empty
     while (_head) {
         temp = _head;
         _head = _head->_next;
