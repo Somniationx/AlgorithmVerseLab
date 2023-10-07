@@ -3,15 +3,15 @@
 // 定义二叉树节点结构
 struct binary_tree_node {
     int _data;               // 节点存储的数据
-    binary_tree_node *_left; // 左子树指针
-    binary_tree_node *_right;// 右子树指针
+    binary_tree_node* _left; // 左子树指针
+    binary_tree_node* _right;// 右子树指针
 };
 
 // 使用别名简化节点类型名称
 typedef binary_tree_node node;
 
 // 前序遍历函数，以根-左-右的顺序遍历树
-void pre_order(node *root) {
+void pre_order(node* root) {
     if (root == nullptr) {
         std::cout << "NULL "; // 当前节点为空，输出"NULL"
         return;
@@ -23,7 +23,7 @@ void pre_order(node *root) {
 }
 
 // 中序遍历函数，以左-根-右的顺序遍历树
-void mid_order(node *root) {
+void mid_order(node* root) {
     if (root == nullptr) {
         std::cout << "NULL "; // 当前节点为空，输出"NULL"
         return;
@@ -34,8 +34,8 @@ void mid_order(node *root) {
 }
 
 // 后序遍历函数，以左-右-根的顺序遍历树
-void pos_order(node *root) {
-    if(root == nullptr) {
+void pos_order(node* root) {
+    if (root == nullptr) {
         std::cout << "NULL "; // 当前节点为空，输出"NULL"
         return;
     }
@@ -44,8 +44,51 @@ void pos_order(node *root) {
     std::cout << root->_data << " "; // 输出当前节点的数据
 }
 
+// 求取二叉树节点个数
+int treeSize(node* root) {
+    if (root == nullptr) {
+        return 0;
+    }
+
+    int leftSize = treeSize(root->_left);
+    int rightSize = treeSize(root->_right);
+
+    return 1 + leftSize + rightSize;
+}
+
+// 叶子节点个数
+int treeLeafSize(node* root) {
+    if (root == nullptr) {
+        return 0;
+    }
+
+    if (root->_left == nullptr && root->_right == nullptr) {
+        // 当前节点是叶子节点
+        return 1;
+    }
+
+    int leftLeafSize = treeLeafSize(root->_left);
+    int rightLeafSize = treeLeafSize(root->_right);
+
+    return leftLeafSize + rightLeafSize;
+}
+
+// 二叉树高度
+int treeHeight(node* root) {
+    if (root == nullptr) {
+        return 0; // 空树的高度为0
+    }
+
+    int leftHeight = treeHeight(root->_left);
+    int rightHeight = treeHeight(root->_right);
+
+    // 返回左子树和右子树中更高的高度加上1（当前节点）
+    return 1 + std::max(leftHeight, rightHeight);
+}
+
+
 // 清理二叉树内存的辅助函数
-void deleteTree(node *root) {
+void deleteTree(node* root) {
     if (root == nullptr) {
         return;
     }
