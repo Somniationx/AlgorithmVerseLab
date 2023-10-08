@@ -1,3 +1,0 @@
-E:/DataStructure/LinkList/cmake-build-debug/CMakeFiles/LinkList.dir
-E:/DataStructure/LinkList/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/DataStructure/LinkList/cmake-build-debug/CMakeFiles/rebuild_cache.dir

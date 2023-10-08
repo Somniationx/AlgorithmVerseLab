@@ -1,3 +1,0 @@
-E:/DataStructure/StackC/cmake-build-debug/CMakeFiles/StackC.dir
-E:/DataStructure/StackC/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/DataStructure/StackC/cmake-build-debug/CMakeFiles/rebuild_cache.dir

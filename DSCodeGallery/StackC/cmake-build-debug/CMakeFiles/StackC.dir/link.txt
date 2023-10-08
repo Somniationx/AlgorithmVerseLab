@@ -1,3 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2023.1.4\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\StackC.dir/objects.a
-C:\PROGRA~1\JetBrains\CLION2~1.4\bin\mingw\bin\ar.exe qc CMakeFiles\StackC.dir/objects.a @CMakeFiles\StackC.dir\objects1.rsp
-C:\PROGRA~1\JetBrains\CLION2~1.4\bin\mingw\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\StackC.dir/objects.a -Wl,--no-whole-archive -o StackC.exe -Wl,--out-implib,libStackC.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\StackC.dir\linkLibs.rsp
