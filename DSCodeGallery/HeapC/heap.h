@@ -8,7 +8,7 @@
 
 typedef int val_type;     // 数据类型
 typedef int *pointer;     // 指针类型
-typedef size_t size_type; // 大小类型
+typedef int size_type; // 大小类型
 
 // 堆的数据结构定义
 struct heap {
